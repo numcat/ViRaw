@@ -48,7 +48,7 @@ def main():
         'gradient_accumulation_steps'] = args['full_train_batch_size'] // (
             args['per_gpu_train_batch_size'] * args['world_size'])
     train_dataset = MsDataset.load(
-        'DAMO_ConvAI/FrDoc2BotRerank',
+        'DAMO_ConvAI/ViDoc2BotRerank',
         download_mode=DownloadMode.FORCE_REDOWNLOAD,
         split='train')
     trainer = DocumentGroundedDialogRerankTrainer(

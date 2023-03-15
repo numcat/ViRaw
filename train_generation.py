@@ -287,14 +287,14 @@ def evaluate(trainer, batch_size=16, checkpoint_path=None):
 
 
 if __name__ == '__main__':
-    fr_train_dataset = MsDataset.load(
-        'DAMO_ConvAI/FrDoc2BotGeneration',
-        download_mode=DownloadMode.FORCE_REDOWNLOAD)
+    # fr_train_dataset = MsDataset.load(
+    #     'DAMO_ConvAI/FrDoc2BotGeneration',
+    #     download_mode=DownloadMode.FORCE_REDOWNLOAD)
     vi_train_dataset = MsDataset.load(
         'DAMO_ConvAI/ViDoc2BotGeneration',
         download_mode=DownloadMode.FORCE_REDOWNLOAD)
 
-    train_dataset = [x for dataset in [fr_train_dataset, vi_train_dataset] for x in dataset]
+    #train_dataset = [x for dataset in [fr_train_dataset, vi_train_dataset] for x in dataset]
 
     with open('all_passages/id_to_passage.json') as f:
         id_to_passage = json.load(f)
@@ -302,8 +302,8 @@ if __name__ == '__main__':
     cache_path = snapshot_download('DAMO_ConvAI/nlp_convai_generation_pretrain', cache_dir='./')
     trainer = DocumentGroundedDialogGenerateTrainer(
         model=cache_path,
-        train_dataset=train_dataset,
-        eval_dataset=train_dataset[:100],
+        train_dataset=vi_train_dataset,
+        eval_dataset=vi_train_dataset[:100],
     )
 
     train(trainer, batch_size=16, accumulation_steps=1, total_epoches=10, learning_rate=1e-4)
